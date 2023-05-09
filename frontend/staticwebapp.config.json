@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+  "routes": [
+    {
+      "route": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/login",
+      "rewrite": "/.auth/login/aadb2c"
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login"
+    }
+  },
+  "auth": {
+    "identityProviders": {
+      "customOpenIdConnectProviders": {
+        "aadb2c": {
+          "registration": {
+            "clientIdSettingName": "B2C_CLIENT_ID",
+            "clientCredential": {
+              "clientSecretSettingName": "B2C_SECRET"
+            },
+            "openIdConnectConfiguration": {
+              "wellKnownOpenIdConfiguration": "https://mitsuzonotestorg.b2clogin.com/mitsuzonotestorg.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_kunihisa_handson20230509_signupsignin"
+            }
+          },
+          "login": {
+            "scopes": ["openid", "profile"]
+          }
+        }
+      }
+    }
+  }
+}
